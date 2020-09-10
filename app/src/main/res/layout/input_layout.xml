@@ -13,7 +13,7 @@
         android:textColor="@color/white"
         android:background="@color/black"
         android:padding="10dp"
-        android:text="213"/>
+        android:text=""/>
     <TextView
         android:id="@+id/tvOutput"
         android:layout_width="match_parent"
@@ -23,6 +23,6 @@
         android:textColor="@color/white"
         android:background="@color/black"
         android:padding="10dp"
-        android:text="546"/>
+        android:text=""/>
 
 </LinearLayout>

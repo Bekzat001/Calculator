@@ -7,6 +7,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.mozilla.javascript.Context;
+import org.mozilla.javascript.Scriptable;
+import org.mozilla.javascript.ast.Scope;
+
 public class MainActivity extends AppCompatActivity {
 
     Button btn0,btn1,btn2,btn3,btn4,btn5,btn6,btn7,btn8,btn9,btnPlus,btnMinus,btnMultiply,btnDivision,btnEqual,btnClear,btnDot,btnBracket,btnPercent;
@@ -184,9 +188,28 @@ public class MainActivity extends AppCompatActivity {
         btnEqual.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                process = tvInput.getText().toString();
+
+                process = process.replaceAll("×", "*");
+                process = process.replaceAll("%", "/100");
+                process = process.replaceAll("÷", "/");
+
+                Context rhino = Context.enter();
+
+                rhino.setOptimizationLevel(-1);
+
+                String finalResult = "";
+
+                try {
+                    Scriptable scriptable = rhino.initStandardObjects();
+                    finalResult = rhino.evaluateString(scriptable,process, "javascript", 1, null).toString();
+                }catch (Exception e){
+                    finalResult="0";
+                }
+                tvOutput.setText(finalResult);
             }
         });
-
-
     }
 }
+
